@@ -5,7 +5,7 @@ import { ContactsList } from './Contacts/ContactList';
 import { nanoid } from 'nanoid';
 import { Filter } from './Filter/Filter';
 import { Container } from './Container/Container.styled';
-import { selectContacts, selectFilter, selectIsLoading } from 'redux/selectors';
+import { selectContacts, selectError, selectFilter, selectIsLoading } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/filter/filterSlice';
 import { addContactsThunk, deleteContactsThunk, fetchContactsThunk } from 'redux/operations';
@@ -16,6 +16,7 @@ export const App = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,6 +48,7 @@ export const App = () => {
   return (
     <Container>
       {isLoading && <Loader />}
+      {error !== null && <p>Error: {error}</p>}
       <h1>Phonebook</h1>
       <ContactForm onSubmit={handleSubmit} />
       <Filter handleChange={handleChange} filter={filter} />

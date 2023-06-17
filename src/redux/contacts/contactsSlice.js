@@ -3,6 +3,7 @@ import { addContactsThunk, deleteContactsThunk, fetchContactsThunk } from 'redux
 
 const handlePending = state => {
   state.isLoading = true;
+  state.error = null;
 };
 
 const handleRejected = (state, { payload }) => {
